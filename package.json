@@ -1,0 +1,17 @@
+{
+  "name": "tinder-backend",
+  "version": "1.0.0",
+  "description": "my tinder project backend",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+"dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
