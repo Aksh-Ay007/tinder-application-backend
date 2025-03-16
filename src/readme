@@ -1,3 +1,16 @@
 
 
 s3xvl5VaYhOQhzDp          AkshayProject
+
+
+
+
+follow below documentaion for validation
+https://mongoosejs.com/docs
+
+
+
+use npm validator librarory for email validation
+https://www.npmjs.com/package/validator
+
+
