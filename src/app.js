@@ -1,15 +1,24 @@
-const express=require('express')
+const express = require('express');
+const connectDB =require('./config/database.js');
 
-const app=express()
-
-
-app.get('/',(req,res)=>{
-
-    res.send('dfs')
-})
+const app = express();
 
 
-app.listen(3000, ()=>{
-    console.log('server is running');
+connectDB().then(()=>{
+    console.log('database connection successfully');
+
+    app.listen(7777, () => {
+        console.log('Server is running ');
+      });
     
 })
+.catch((err)=>{
+    console.log('db cannot connect');
+    
+})
+
+
+
+
+
+const PORT = 7777;
