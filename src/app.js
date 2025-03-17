@@ -5,13 +5,25 @@ const app = express();
 
 const User = require('./models/user');
 const { Error } = require('mongoose');
+const bcrypt = require('bcrypt');
+
+const {validationASignupData}=require('./utils/validation')
 
 app.use(express.json());
 
 app.post('/signup', async (req, res) => {
-    const user = new User(req.body);
-
     try {
+    validationASignupData(req)
+    const {firstName,lastName,emailId,password}=req.body
+    const passwordHash= await bcrypt.hash(password, 10)
+    console.log(passwordHash);
+    
+    const user = new User({
+        firstName,lastName,emailId,password:passwordHash
+    });
+
+
+    
         await user.save();
         res.send('User added successfully');
     } catch (err) {
