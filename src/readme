@@ -14,3 +14,8 @@ use npm validator librarory for email validation
 https://www.npmjs.com/package/validator
 
 
+
+
+
+"emailId": "aro@gmail.com",
+        "password": "Aro123!@"
