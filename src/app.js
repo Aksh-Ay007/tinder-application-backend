@@ -44,11 +44,11 @@ app.post('/login', async (req, res) => {
       throw new Error('Email ID wrong');
     }
 
-    const isPasswordValidate = await bcrypt.compare(password, user.password);
+    const isPasswordValidate = await user.validatePassword(password)
     console.log(isPasswordValidate);
 
     if (isPasswordValidate) {
-      const token = await jwt.sign({ _id: user._id }, 'tindersecret123@',{ expiresIn: '1d' });
+      const token = await user.getJWT()
       console.log(token);
 
       res.cookie('token', token,{ expires: new Date(Date.now() + 900000) });
