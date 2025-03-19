@@ -9,22 +9,23 @@ POST/auth/logout
 
 
 
-//Profile router
+##Profile router
+
 GET/profile/view
 PATCH/profile/edit.............update profile
 PATCH/profile/patchPassword....update password
 
 
 
-///sending a connection request
+##sending a connection request
 
  //Connection router
-POST/request/send/intrested/:userId
-POST/request/send/ignored/:userId
+POST/request/send/:status/:userId
+POST/request/send/:status/:requestId
 
 
 
-//getting reqest
+##connection  reqest Router
 
 POST/request/review/accepted/:requestId
 POST/request/review/rejected/:requestId
