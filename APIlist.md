@@ -1,41 +1,44 @@
 //api lists used in this project
 
-##Auth router
+                         ##Auth router
 
-POST/auth/signup
-POST/auth/login
-POST/auth/logout
-
-
+               POST/auth/signup
+              POST/auth/login
+               POST/auth/logout
 
 
-##Profile router
 
-GET/profile/view
-PATCH/profile/edit.............update profile
-PATCH/profile/patchPassword....update password
+
+                   ##Profile router
+
+                  GET/profile/view
+                  PATCH/profile/edit.............update profile
+                   PATCH/profile/patchPassword....update password
 
 
 
 ##sending a connection request
 
- //Connection router
-POST/request/send/:status/:userId
-POST/request/send/:status/:requestId
+                 //Connection router
+
+            POST/request/send/:status/:userId
+             POST/request/review/:status/:requestId
+
+
+[POST/request/review/accepted/:requestId
+POST/request/review/rejected/:requestId]=>>>>>>>>>>>>>>>>>>instead both we can use          POST/request/review/:status/:requestId
+  this api
 
 
 
-##connection  reqest Router
-
-POST/request/review/accepted/:requestId
-POST/request/review/rejected/:requestId
 
 
-//user router
+              //user Router
 
-GET/user/connetions
-GET/user/reqests/reveived
-GET/user/feed...get you theprofile of otheruser on platform
+
+               GET/user/requests/recieved
+               GET/user/connetions
+              GET/user/feed...get you theprofile of otheruser on platform
 
 
 

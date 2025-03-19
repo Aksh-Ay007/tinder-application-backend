@@ -27,3 +27,9 @@ https://www.npmjs.com/package/validator
    "emailId": "virat@gmail.com",
         "password": "Virat123!@"
 }
+
+
+
+{        "emailId": "akki@gmail.com",
+        "password": "Akki123!@"
+        }
