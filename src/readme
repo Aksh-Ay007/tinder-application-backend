@@ -22,6 +22,11 @@ https://www.npmjs.com/package/validator
 
 
 
+        {
+     "emailId": "sreethu@gmail.com",
+        "password": "Sreethu123!@"
+}
+
 
         {
    "emailId": "virat@gmail.com",
@@ -33,3 +38,11 @@ https://www.npmjs.com/package/validator
 {        "emailId": "akki@gmail.com",
         "password": "Akki123!@"
         }
+
+
+
+        {
+
+    "emailId": "yuvi@gmail.com",
+        "password": "Dhoni123!@"
+}

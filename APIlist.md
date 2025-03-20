@@ -37,7 +37,7 @@ POST/request/review/rejected/:requestId]=>>>>>>>>>>>>>>>>>>instead both we can u
 
 
                GET/user/requests/recieved
-               GET/user/connetions
+               GET/user/connetions  ----------------who is acceped req
               GET/user/feed...get you theprofile of otheruser on platform
 
 
