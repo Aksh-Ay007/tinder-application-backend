@@ -1,8 +1,18 @@
 const express = require('express');
 const connectDB = require('./config/database.js');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const app = express();
+
+// CORS configuration
+const corsOptions = {
+  origin: ['http://localhost:5173', 'http://localhost:5174'], // Replace with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -10,13 +20,12 @@ app.use(cookieParser());
 const authRoute = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const requestRouter = require('./routes/request');
-const userRouter=require('./routes/user')
-
+const userRouter = require('./routes/user');
 
 app.use('/', authRoute);
 app.use('/', profileRouter);
 app.use('/', requestRouter);
-app.use('/',userRouter)
+app.use('/', userRouter);
 
 connectDB().then(() => {
   console.log('Database connection successful');

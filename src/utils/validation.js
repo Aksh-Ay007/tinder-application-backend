@@ -28,20 +28,55 @@ const validationASignupData=(req)=>{
 }
 
 
-
-const validateProfileEdit=(req)=>{
-
-    const allowedEditField=[
-        'gender',
-        'age','photoUrl','bio','hobby','skills','firstName','lastName'
-    ]
-
-    const isEditAllowed=Object.keys(req.body).every((field)=>
-    
-    allowedEditField.includes(field))
-
-    return isEditAllowed
-}
+const validateProfileEdit = (req) => {
+    const { 
+      firstName, 
+      lastName, 
+      age, 
+      gender, 
+      bio, 
+      hobby, 
+      skills 
+    } = req.body;
+  
+    // First name validation
+    if (firstName && (firstName.length < 3 || firstName.length > 50)) {
+      return false;
+    }
+  
+    // Last name validation (optional)
+    if (lastName && lastName.length > 50) {
+      return false;
+    }
+  
+    // Age validation
+    if (age && (age < 0 || age > 120)) {
+      return false;
+    }
+  
+    // Gender validation
+    if (gender && !['male', 'female', 'others'].includes(gender.toLowerCase())) {
+      return false;
+    }
+  
+    // Bio length validation
+    if (bio && bio.length > 500) {
+      return false;
+    }
+  
+    // Hobby validation
+    if (hobby && (hobby.length > 10 || hobby.some(h => h.length > 50))) {
+      return false;
+    }
+  
+    // Skills validation
+    if (skills && (skills.length > 15 || skills.some(s => s.length > 50))) {
+      return false;
+    }
+  
+    return true;
+  };
+  
 
 
 module.exports={

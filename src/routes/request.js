@@ -105,4 +105,30 @@ requestRouter.post('/request/review/:status/:requestId', userAuth, async (req, r
 });
 
 
+requestRouter.get('/requests/count', userAuth, async (req, res) => {
+  try {
+    const loggedInUserId = req.user._id;
+
+    // Count pending requests
+    const requestCount = await ConnectionRequest.countDocuments({
+      toUserId: loggedInUserId,
+      status: "interested",
+    });
+
+    // Count accepted connections (both incoming and outgoing)
+    const connectionCount = await ConnectionRequest.countDocuments({
+      $or: [
+        { fromUserId: loggedInUserId, status: "accepted" },
+        { toUserId: loggedInUserId, status: "accepted" },
+      ],
+    });
+
+    res.json({ pendingRequests: requestCount, connections: connectionCount });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching counts", error: error.message });
+  }
+});
+
+
+
 module.exports = requestRouter;

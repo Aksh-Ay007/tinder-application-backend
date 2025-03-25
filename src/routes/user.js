@@ -12,6 +12,8 @@ const SAFE_DATA_FIELDS = [
   "bio",
   "hobby",
   "skills",
+  "age",
+  "gender",
 ];
 //get all the pending connection requests for the loggedInUser
 
@@ -93,13 +95,52 @@ userRouter.get('/feed',userAuth,async(req,res)=>{
     }).select(SAFE_DATA_FIELDS).skip(skip).limit(limit)
     
 
-    res.send(users)
+    res.json({data:users})
 
   } catch (error) {
     res.status(400).send("Error  :" + error.message);
 
   }
 })
+
+
+userRouter.get("/userProfile/:userId", userAuth, async (req, res) => {
+  try {
+    const loggedInUser = req.user;
+    const { userId } = req.params;
+
+    // Prevent users from viewing their own profile
+    if (loggedInUser._id.toString() === userId) {
+      return res.status(403).json({ message: "You cannot view your own profile" });
+    }
+
+    // Fetch connection requests to determine connections
+    const connectionRequests = await ConnectionRequest.find({
+      $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
+    }).select("fromUserId toUserId");
+
+    const hiddenUsers = new Set();
+    connectionRequests.forEach(req => {
+      hiddenUsers.add(req.fromUserId.toString());
+      hiddenUsers.add(req.toUserId.toString());
+    });
+
+    // Prevent viewing users the logged-in user is connected with
+    if (hiddenUsers.has(userId)) {
+      return res.status(403).json({ message: "You cannot view this profile" });
+    }
+
+    // Fetch user profile
+    const userProfile = await User.findById(userId).select("-password");
+    if (!userProfile) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ data: userProfile });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching profile", error: error.message });
+  }
+});
 
 module.exports = userRouter;
  
