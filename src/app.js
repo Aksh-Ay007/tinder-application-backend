@@ -23,7 +23,7 @@ const authRoute = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const requestRouter = require('./routes/request');
 const userRouter = require('./routes/user');
-const paymentRouter = require('./routes/payment.js');
+const paymentRouter = require('./routes/payment');
 
 app.use('/', authRoute);
 app.use('/', profileRouter);
