@@ -5,6 +5,8 @@ const cors = require('cors');
 
 const app = express();
 
+require("dotenv").config();
+
 // CORS configuration
 const corsOptions = {
   origin: ['http://localhost:5173', 'http://localhost:5174'], // Replace with your frontend URL
@@ -21,11 +23,13 @@ const authRoute = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const requestRouter = require('./routes/request');
 const userRouter = require('./routes/user');
+const paymentRouter = require('./routes/payment.js');
 
 app.use('/', authRoute);
 app.use('/', profileRouter);
 app.use('/', requestRouter);
 app.use('/', userRouter);
+app.use('/', paymentRouter);
 
 connectDB().then(() => {
   console.log('Database connection successful');

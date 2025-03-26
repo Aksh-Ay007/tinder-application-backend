@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { Error } = require("mongoose");
 
+
 const userAuth = async (req, res, next) => {
   //read the token  from the req cookie
   //validate token
@@ -15,7 +16,7 @@ return res.status(401).send('please login to access the data')
 
     }
 
-    const decodeObj = await jwt.verify(token, "tindersecret123@");
+    const decodeObj = await jwt.verify(token, process.env.JWT_SECRET);
 
     const { _id } = decodeObj;
 
