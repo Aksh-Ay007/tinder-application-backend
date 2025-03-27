@@ -42,6 +42,13 @@ const userSchema = new mongoose.Schema({
     set: value => value.toLowerCase(), // Convert to lowercase
     default: 'others' // Provide a default value
   },
+  isPremium: {
+    type: Boolean,
+    default: false,
+  },
+  membershipType: {
+    type: String,
+  },
   photoUrl: {
     type: String,
     default: 'https://imgs.search.brave.com/TTaNjijvqIhj4FHkGykQrPUeIro0IKcaaLdROt_g2mM/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9hdmF0/YXIuaXJhbi5saWFyYS5ydW4vcHVibGljL2JveA.jpeg',
