@@ -24,7 +24,7 @@ requestRouter.post(
 
 
       const toUser = await User.findById(toUserId);
-      console.log(toUser, 'I am user');
+    
 
       if (!toUser) {
         return res.status(404).json({ message: 'This user does not exist' });

@@ -16,7 +16,6 @@ authRoute.post('/signup', async (req, res) => {
     validationASignupData(req);
     const { firstName, lastName, emailId, password, age, gender, photoUrl, bio, hobby, skills } = req.body;
     const passwordHash = await bcrypt.hash(password, 10);
-    console.log(passwordHash);
 
     const user = new User({
       firstName,
@@ -65,11 +64,11 @@ authRoute.post('/login', async (req, res) => {
     }
 
     const isPasswordValidate = await user.validatePassword(password);
-    console.log(isPasswordValidate);
+
 
     if (isPasswordValidate) {
       const token = await user.getJWT();
-      console.log(token);
+   
 
       res.cookie('token', token, { expires: new Date(Date.now() + 900000) });
       res.send(user);
@@ -157,7 +156,7 @@ authRoute.post('/google/login', async (req, res) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: 'User not found. Please signup first.'
+        message: 'We could not find an account associated with this email. Please sign up to create a new account.'
       });
     }
 

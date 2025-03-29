@@ -26,7 +26,7 @@ paymentRouter.post("/payment/create", userAuth, async (req, res) => {
         membershipType: membershipType,
       },
     });
-    console.log(order);
+  
 
     const payment = new Payment({
       userId: req.user._id,
@@ -51,7 +51,7 @@ paymentRouter.post("/payment/create", userAuth, async (req, res) => {
 
 paymentRouter.post("/payment/webhook", async (req, res) => {
     try {
-        console.log("Webhook Called");
+      
         
         const secret = process.env.RAZORPAY_WEBHOOK_SECRET; // Make sure this is set in .env
         const webhookSignature = req.get("X-Razorpay-Signature");
@@ -72,11 +72,11 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
         const event = req.body.event; // Extract event type
         const payload = req.body.payload; // Extract payload data
 
-        console.log("Event Type:", event);
+ 
         
         if (event === "payment.captured") {
             const paymentData = payload.payment.entity;
-            console.log("Payment Captured:", paymentData);
+           
 
             const orderId = paymentData.order_id;
             const paymentId = paymentData.id;
@@ -95,7 +95,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
                 return res.status(404).json({ msg: "Payment record not found" });
             }
 
-            console.log("Payment Record Updated:", updatedPayment);
+           
 
             // Update user membership status
             const updatedUser = await User.findOneAndUpdate(
@@ -108,7 +108,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
                 return res.status(404).json({ msg: "User not found" });
             }
 
-            console.log("User Membership Updated:", updatedUser);
+         
 
             return res.status(200).json({ msg: "Payment and User updated successfully",   user: updatedUser });
         }

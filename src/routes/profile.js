@@ -11,7 +11,7 @@ profileRouter.use(express.urlencoded({ limit: '10mb', extended: true }));
 profileRouter.get('/profile/view', userAuth, async (req, res) => {
   try {
     const user = req.user;
-    console.log(user);
+
 
     res.send(user);
   } catch (error) {
