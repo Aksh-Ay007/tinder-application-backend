@@ -16,6 +16,14 @@ const messageSchema = new mongoose.Schema(
       ref: "Chat",
       required: true,
     },
+    mediaUrl: {
+        type: String
+      },
+      mediaType: {
+        type: String,
+        enum: ['image', 'video', null],
+        default: null
+      },
     isRead: {
       type: Boolean,
       default: false,
