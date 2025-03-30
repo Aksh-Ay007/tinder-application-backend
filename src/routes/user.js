@@ -55,7 +55,7 @@ userRouter.get("/user/connetions", userAuth, async (req, res) => {
 
     res.json({ message: "data fetch successful", data: data });
   } catch (error) {
-    res.status(4000).send("Error  :" + error.message);
+    res.status(400).send("Error  :" + error.message);
   }
 });
 
