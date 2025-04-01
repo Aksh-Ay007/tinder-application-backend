@@ -48,7 +48,7 @@ initializeSocket(server);
 connectDB().then(() => {
   console.log('Database connection successful');
 
-  server.listen(8080, () => {
+  server.listen(7777, () => {
     console.log('Server is running');
   });
 }).catch((err) => {

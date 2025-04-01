@@ -80,7 +80,7 @@ authRoute.post('/login', async (req, res) => {
   }
 });
 
-
+/*
 // Google Signup Route
 authRoute.post('/google/signup', async (req, res) => {
   try {
@@ -194,7 +194,7 @@ authRoute.post('/google/login', async (req, res) => {
   }
 });
 
-
+*/
 authRoute.post('/logout', async (req, res) => {
   res.cookie('token', null, { expires: new Date(Date.now()) });
   res.send('User logged out successfully');
