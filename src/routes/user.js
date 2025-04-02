@@ -103,7 +103,6 @@ userRouter.get('/feed',userAuth,async(req,res)=>{
   }
 })
 
-
 userRouter.get("/userProfile/:userId", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
@@ -114,29 +113,24 @@ userRouter.get("/userProfile/:userId", userAuth, async (req, res) => {
       return res.status(403).json({ message: "You cannot view your own profile" });
     }
 
-    // Fetch connection requests to determine connections
-    const connectionRequests = await ConnectionRequest.find({
-      $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
-    }).select("fromUserId toUserId");
-
-    const hiddenUsers = new Set();
-    connectionRequests.forEach(req => {
-      hiddenUsers.add(req.fromUserId.toString());
-      hiddenUsers.add(req.toUserId.toString());
+    // Check if the user is connected with the logged-in user
+    const isConnection = await ConnectionRequest.findOne({
+      $or: [
+        { fromUserId: loggedInUser._id, toUserId: userId, status: "accepted" },
+        { fromUserId: userId, toUserId: loggedInUser._id, status: "accepted" },
+      ],
     });
 
-    // Prevent viewing users the logged-in user is connected with
-    if (hiddenUsers.has(userId)) {
-      return res.status(403).json({ message: "You cannot view this profile" });
-    }
-
     // Fetch user profile
-    const userProfile = await User.findById(userId).select("-password");
+    const userProfile = await User.findById(userId).select(SAFE_DATA_FIELDS);
     if (!userProfile) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.json({ data: userProfile });
+    res.json({ 
+      data: userProfile, 
+      isConnected: !!isConnection // Include connection status in the response
+    });
   } catch (error) {
     res.status(500).json({ message: "Error fetching profile", error: error.message });
   }
