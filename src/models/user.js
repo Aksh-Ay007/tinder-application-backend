@@ -88,6 +88,34 @@ const userSchema = new mongoose.Schema({
     enum: ['local', 'google'],
     default: 'local'
   },
+
+  // Add this to your userSchema (User.js)
+photos: {
+  type: [
+    {
+      url: {
+        type: String,
+        required: true,
+        validate(value) {
+          if (!validator.isURL(value)) {
+            throw new Error('Invalid photo URL: ' + value);
+          }
+        }
+      },
+      publicId: {
+        type: String,
+        required: true
+      }
+    }
+  ],
+  default: [],
+  validate: {
+    validator: function(v) {
+      return v.length <= 8; // Maximum 8 photos
+    },
+    message: 'You can have a maximum of 8 photos'
+  }
+}
 }, { timestamps: true });
 
 // Existing methods remain the same

@@ -121,8 +121,8 @@ userRouter.get("/userProfile/:userId", userAuth, async (req, res) => {
       ],
     });
 
-    // Fetch user profile
-    const userProfile = await User.findById(userId).select(SAFE_DATA_FIELDS);
+    // Fetch user profile, including photos
+    const userProfile = await User.findById(userId).select([...SAFE_DATA_FIELDS, "photos"]);
     if (!userProfile) {
       return res.status(404).json({ message: "User not found" });
     }
